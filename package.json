@@ -1,0 +1,15 @@
+{
+  "name": "save-the-qin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node scripts/test.mjs && node scripts/test-results.mjs",
+    "simulate": "node scripts/simulate.mjs 500000",
+    "diagnose": "node scripts/diagnose.mjs",
+    "diagnose:minimum": "node scripts/maximize-min-issues.mjs"
+  }
+}

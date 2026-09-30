@@ -1,0 +1,2 @@
+const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]);
+export function issueBar({key,name,score,tier,status,body}){return `<article class="issue-item ${tier}" data-issue="${key}"><div class="issue-head"><span>${escapeHtml(name)}</span><b>${score}%</b><em>${escapeHtml(status)}</em></div><i><u style="width:${score}%"></u></i><p>${escapeHtml(body)}</p></article>`;}

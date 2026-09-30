@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>穿越大秦，你能把大秦救到什么程度？</title>
+  <meta name="description" content="24道抉择，测试你能否改写大秦的命运。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23100f0d'/%3E%3Cpath d='M14 18h36v7H14zm6 12h24v20H20zm7 6v8h10v-8z' fill='%23b89657'/%3E%3Cpath d='M10 52h44v4H10z' fill='%239b2925'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <main>
+    <section id="home" class="screen active home-screen">
+      <div class="seal" aria-hidden="true">秦</div>
+      <p class="eyebrow">始皇三十五年 · 咸阳</p>
+      <h1>穿越大秦，<br><span>你能把大秦救到什么程度？</span></h1>
+      <p class="intro">你知道沙丘之变，也知道帝国将如何倾覆。可当你真正站在咸阳宫前，历史不会给你标准答案。</p>
+      <div class="premise"><span>24</span> 次抉择 <i></i><span>6</span> 维能力 <i></i><span>12</span> 种结局</div>
+      <button id="start" class="primary">开始穿越</button>
+      <p class="note">所有选择仅在本机计算</p>
+    </section>
+
+    <section id="quiz" class="screen quiz-screen">
+      <header class="quiz-header"><div class="quiz-meta"><span>穿越大秦</span><b id="counter">01 / 24</b></div><div class="progress"><i id="progress-fill"></i></div><button id="back" class="back" aria-label="上一题">‹ <span>上一题</span></button></header>
+      <div class="question-wrap">
+        <p id="chapter" class="eyebrow"></p><h2 id="question-title"></h2><p id="scene" class="scene"></p>
+        <div id="options" class="options"></div>
+      </div>
+    </section>
+
+    <section id="result" class="screen result-screen">
+      <div class="result-hero">
+        <p class="eyebrow">你的大秦结局</p><h2 id="ending"></h2>
+        <div id="score-block" class="score-block"><span id="score-label">大秦拯救度</span><div><strong id="score">0</strong><b>%</b></div><small id="score-note"></small></div>
+      </div>
+      <section class="ending-copy"><div id="result-copy"></div><blockquote id="result-emphasis"></blockquote></section>
+      <section class="result-card route"><p class="card-label">你的救秦路线</p><h3 id="route-name"></h3><p id="route-quote"></p></section>
+      <section class="result-card"><div class="card-heading"><p class="card-label">六维画像</p><span>你的能力侧写</span></div><div id="dimensions"></div></section>
+      <section class="report-section"><div class="section-title"><span>人物卷宗</span><h3>你改写了谁的命运</h3></div><div id="fates" class="fate-grid"></div></section>
+      <section class="report-section"><div class="section-title"><span>帝国诊断</span><h3>你的大秦还有哪些问题？</h3></div><div id="illnesses" class="issue-list"></div></section>
+      <section id="weakest" class="weakest"><span>历史点评</span><h3 id="issue-title"></h3><p id="issue-summary"></p></section>
+      <section class="share-panel"><div class="section-title"><span>分享档案</span><h3>生成你的大秦结果海报</h3></div><div id="share-card" class="share-card-shell"></div><button id="save-image" class="secondary" type="button">生成我的大秦档案</button></section>
+      <div class="result-actions"><button id="restart" class="primary">重新测试</button></div>
+      <p class="share-tip">截图发给朋友，看看谁能把大秦救得更远。</p><p class="footer-mark">大秦命运推演 · 结果仅供娱乐</p>
+    </section>
+  </main>
+  <div id="timeline-transition" class="timeline-transition" hidden><div class="seal">秦</div><p>正在推演你的大秦时间线……</p></div>
+  <div id="share-modal" class="share-modal" hidden role="dialog" aria-modal="true" aria-labelledby="share-modal-title"><div class="share-dialog"><button id="close-share" class="share-close" aria-label="关闭">×</button><p class="eyebrow" id="share-modal-title">你的大秦档案</p><img id="share-preview" alt="大秦测试分享结果图"><div class="share-modal-actions"><a id="download-share" class="primary" download="我的大秦档案.png">下载PNG</a></div><p>手机端也可以长按上方图片保存。</p></div></div>
+  <script type="module" src="./app.js"></script>
+</body></html>

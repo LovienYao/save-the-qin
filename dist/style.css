@@ -17,5 +17,7 @@ body{overflow-x:hidden}.grain{opacity:.09}.screen{min-height:100dvh}.result-hero
 .metric{margin:22px 0}.metric-comment{margin:10px 0 0;color:#958e83;font-size:.82rem;line-height:1.72}.fate-grid{gap:16px}.fate-card{padding:20px 18px}.fate-card .fate-body{margin:18px 0 2px;color:#aaa296;line-height:1.95;font-size:.93rem;white-space:pre-line}
 
 @media(max-width:430px){.metric-comment{font-size:.8rem;line-height:1.68}.fate-card{padding:18px 16px}.fate-card .fate-body{font-size:.9rem;line-height:1.9}}
+
+.issue-head b{font:500 1.1rem/1 Arial,"Helvetica Neue",sans-serif;font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1}
 @media(max-width:430px){.screen{padding-left:18px;padding-right:18px}.home-screen{padding-top:max(42px,7vh)}.home-screen h1{font-size:clamp(2rem,9vw,2.65rem)}.intro{margin:22px auto;line-height:1.8}.premise{margin:27px 0;gap:5px}.primary{min-height:54px}.result-hero h2{font-size:clamp(1.7rem,7vw,2.3rem)}.ending-copy{padding-top:28px}.issue-head{grid-template-columns:1fr auto}.issue-head em{grid-column:1/-1;justify-self:start}.poster-card{padding-left:7%;padding-right:7%}.poster-card footer{left:7%}}
 @media(max-width:375px){.screen{padding-left:16px;padding-right:16px}.home-screen h1{font-size:1.95rem}.home-screen h1 br{display:none}.premise{font-size:.75rem}.option{font-size:.94rem}.fate-card>div b{max-width:64%}.poster-card blockquote{display:none}}

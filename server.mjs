@@ -9,6 +9,12 @@ const types = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; char
 createServer(async (req, res) => {
   try {
     const urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
+    if (urlPath === "/api/redeem-code" || urlPath === "/api/access-status") {
+      res.status = code => { res.statusCode = code; return res; };
+      res.json = data => { res.setHeader("Content-Type", "application/json; charset=utf-8"); res.end(JSON.stringify(data)); };
+      const module = await import(urlPath === "/api/redeem-code" ? "./api/redeem-code.js" : "./api/access-status.js");
+      return module.default(req, res);
+    }
     const relative = normalize(urlPath === "/" ? "index.html" : urlPath.replace(/^\/+/, ""));
     if (relative.startsWith("..")) throw new Error("invalid path");
     let file = join(root, relative);

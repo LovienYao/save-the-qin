@@ -45,3 +45,25 @@ npm run dev
 - Environment Variables：不需要
 
 项目为纯静态网页，`vercel.json` 已包含所需部署配置。
+
+## 兑换码访问层
+
+前端通过 `/api/access-status` 验证 HttpOnly Cookie，通过 `/api/redeem-code` 首次激活兑换码。兑换码明文不会进入前端或数据库。
+
+需要在本地与 Vercel 配置以下私密环境变量（不要提交真实值）：
+
+```text
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+```
+
+常用本地命令：
+
+```powershell
+npm run generate:codes -- 500
+npm run reset:code -- QIN-XXXX-XXXX
+npm run disable:code -- QIN-XXXX-XXXX
+npm run enable:code -- QIN-XXXX-XXXX
+```
+
+数据库结构位于 `supabase/access-codes.sql`。生成的明文和导入 CSV 位于 `private/`，该目录已被 Git 忽略。

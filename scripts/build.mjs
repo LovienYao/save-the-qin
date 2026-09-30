@@ -1,11 +1,16 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, extname, join, normalize, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const outputDirectory = resolve("dist");
 const requiredFiles = ["index.html", "style.css", "app.js"];
 
 for (const file of requiredFiles) {
   await access(join(outputDirectory, file));
+}
+for (const serverFile of ["api/redeem-code.js", "api/access-status.js", "lib/access-code.mjs", "lib/supabase-admin.mjs"]) {
+  await access(resolve(serverFile));
+  await import(`${pathToFileURL(resolve(serverFile)).href}?build-check=${Date.now()}`);
 }
 
 const files = [];

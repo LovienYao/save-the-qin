@@ -9,7 +9,28 @@
 </head>
 <body>
   <div class="grain"></div>
-  <main>
+  <section id="access-loading" class="access-gate access-loading" aria-live="polite">
+    <div class="seal" aria-hidden="true">秦</div>
+    <p>正在核验通行令……</p>
+  </section>
+  <section id="access-locked" class="access-gate access-locked" hidden>
+    <div class="access-panel">
+      <div class="seal" aria-hidden="true">秦</div>
+      <p class="eyebrow">大秦密诏 · 通行验证</p>
+      <h1>验令入秦</h1>
+      <div class="access-copy"><p>此卷仅供持有通行令者开启。</p><p>输入你的兑换码，进入属于你的大秦时间线。</p></div>
+      <form id="access-form" novalidate>
+        <label for="access-code">通行令</label>
+        <input id="access-code" name="code" type="text" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" maxlength="13" placeholder="QIN-XXXX-XXXX" aria-describedby="access-message">
+        <button id="access-submit" class="primary" type="submit">验令入秦</button>
+      </form>
+      <p id="access-message" class="access-message" aria-live="polite"></p>
+    </div>
+  </section>
+  <section id="access-success" class="access-gate access-success" hidden>
+    <div class="seal" aria-hidden="true">秦</div><h2>验令通过。</h2><p>你的大秦时间线，即将开启。</p>
+  </section>
+  <main id="app-content" hidden>
     <section id="home" class="screen active home-screen">
       <div class="seal" aria-hidden="true">秦</div>
       <p class="eyebrow">始皇三十五年 · 咸阳</p>

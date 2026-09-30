@@ -7,9 +7,13 @@
     "build": "node scripts/build.mjs",
     "dev": "node server.mjs",
     "start": "node server.mjs",
-    "test": "node scripts/test.mjs && node scripts/test-results.mjs",
+    "test": "node scripts/test.mjs && node scripts/test-results.mjs && node scripts/test-access.mjs",
     "simulate": "node scripts/simulate.mjs 500000",
     "diagnose": "node scripts/diagnose.mjs",
-    "diagnose:minimum": "node scripts/maximize-min-issues.mjs"
+    "diagnose:minimum": "node scripts/maximize-min-issues.mjs",
+    "generate:codes": "node scripts/generate-access-codes.mjs",
+    "reset:code": "node scripts/reset-access-code.mjs",
+    "disable:code": "node scripts/disable-access-code.mjs",
+    "enable:code": "node scripts/enable-access-code.mjs"
   }
 }

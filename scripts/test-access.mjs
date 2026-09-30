@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import redeem from "../api/redeem-code.js";
 import accessStatus from "../api/access-status.js";
 import { generateAccessCode, isValidAccessCode, normalizeAccessCode, sha256 } from "../lib/access-code.mjs";
+import { getSupabaseConfig } from "../lib/supabase-admin.mjs";
 import { changeAccessCode } from "./manage-access-code.mjs";
 
 process.env.SUPABASE_URL = "https://example.supabase.co";
@@ -33,6 +34,10 @@ function installDb(initial = {}) {
 }
 
 assert.equal(normalizeAccessCode(" qin7k3m92af "), "QIN-7K3M-92AF");
+assert.equal(
+  getSupabaseConfig({ SUPABASE_URL: "https://example.supabase.co/rest/v1", SUPABASE_SERVICE_ROLE_KEY: "test" }).url,
+  "https://example.supabase.co"
+);
 for (let i = 0; i < 1000; i++) assert.ok(isValidAccessCode(generateAccessCode()));
 
 let res = response(); await accessStatus(request("GET"), res); assert.deepEqual(res.body, { access: false });

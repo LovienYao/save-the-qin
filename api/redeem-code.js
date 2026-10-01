@@ -1,5 +1,5 @@
 import { generateSessionToken, isValidAccessCode, normalizeAccessCode, sha256 } from "../lib/access-code.mjs";
-import { findCodeByHash, supabaseRequest } from "../lib/supabase-admin.mjs";
+import { activateAccessCode, findAccessCodeByHash } from "../lib/access-store.mjs";
 
 async function readBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const code = normalizeAccessCode(input);
     if (!isValidAccessCode(code)) return res.status(400).json({ success: false, reason: "invalid" });
     const codeHash = sha256(code);
-    const record = await findCodeByHash(codeHash);
+    const record = await findAccessCodeByHash(codeHash);
     if (!record) return res.status(404).json({ success: false, reason: "invalid" });
     if (record.status === "disabled") return res.status(403).json({ success: false, reason: "disabled" });
     if (record.status === "used") return res.status(409).json({ success: false, reason: "used" });
@@ -25,13 +25,11 @@ export default async function handler(req, res) {
     const token = generateSessionToken();
     const now = new Date().toISOString();
     const sessionHash = sha256(token);
-    const rows = await supabaseRequest(`?code_hash=eq.${encodeURIComponent(codeHash)}&status=eq.unused&select=id`, {
-      method: "PATCH",
-      headers: { Prefer: "return=representation" },
-      body: JSON.stringify({ status: "used", activated_at: now, session_hash: sessionHash, last_verified_at: now })
+    const rows = await activateAccessCode(codeHash, {
+      status: "used", activated_at: now, session_hash: sessionHash, last_verified_at: now
     });
     if (rows.length !== 1) {
-      const latest = await findCodeByHash(codeHash, "id,status,session_hash");
+      const latest = await findAccessCodeByHash(codeHash, "id,status,session_hash");
       if (latest?.session_hash !== sessionHash) {
         return res.status(409).json({ success: false, reason: latest?.status === "disabled" ? "disabled" : "used" });
       }

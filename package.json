@@ -15,5 +15,8 @@
     "reset:code": "node --env-file=.env.local scripts/reset-access-code.mjs",
     "disable:code": "node --env-file=.env.local scripts/disable-access-code.mjs",
     "enable:code": "node --env-file=.env.local scripts/enable-access-code.mjs"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^3.18.3"
   }
 }

@@ -1,5 +1,6 @@
 import { sha256 } from "../lib/access-code.mjs";
 import { findAccessCodeBySessionHash, touchAccessCode } from "../lib/access-store.mjs";
+import { isPublicTestSession } from "../lib/public-test-access.mjs";
 
 function cookieValue(header = "", name) {
   for (const part of header.split(";")) {
@@ -14,6 +15,7 @@ export default async function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ access: false });
   const token = cookieValue(req.headers.cookie, "qin_access");
   if (!token) return res.status(200).json({ access: false });
+  if (isPublicTestSession(token)) return res.status(200).json({ access: true });
   try {
     const sessionHash = sha256(token);
     const record = await findAccessCodeBySessionHash(sessionHash);

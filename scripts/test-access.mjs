@@ -43,6 +43,11 @@ for (let i = 0; i < 1000; i++) assert.ok(isValidAccessCode(generateAccessCode())
 let res = response(); await accessStatus(request("GET"), res); assert.deepEqual(res.body, { access: false });
 res = response(); await redeem(request("POST", { code: "wrong" }), res); assert.equal(res.body.reason, "invalid");
 
+res = response(); await redeem(request("POST", { code: "ZJDQ-TEST" }), res); assert.equal(res.body.success, true);
+const publicTestCookie = res.headers["Set-Cookie"].match(/^qin_access=([^;]+)/)[1];
+res = response(); await accessStatus(request("GET", null, `qin_access=${publicTestCookie}`), res); assert.equal(res.body.access, true);
+res = response(); await redeem(request("POST", { code: "ZJDQ-TEST" }), res); assert.equal(res.body.success, true);
+
 const unusedCode = "QIN-7K3M-92AF", unusedHash = sha256(unusedCode);
 const db = installDb({ one: { id: "one", code_hash: unusedHash, status: "unused", session_hash: null } });
 res = response(); await redeem(request("POST", { code: unusedCode }), res); assert.equal(res.body.success, true); assert.match(res.headers["Set-Cookie"], /^qin_access=.*HttpOnly; Secure;/);

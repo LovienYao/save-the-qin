@@ -1,5 +1,6 @@
 import { generateSessionToken, isValidAccessCode, normalizeAccessCode, sha256 } from "../lib/access-code.mjs";
 import { activateAccessCode, findAccessCodeByHash } from "../lib/access-store.mjs";
+import { isPublicTestCode, PUBLIC_TEST_SESSION } from "../lib/public-test-access.mjs";
 
 async function readBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
@@ -14,6 +15,10 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ success: false, reason: "method" });
   try {
     const { code: input } = await readBody(req);
+    if (isPublicTestCode(String(input || "").trim().toUpperCase())) {
+      res.setHeader("Set-Cookie", `qin_access=${PUBLIC_TEST_SESSION}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=31536000`);
+      return res.status(200).json({ success: true });
+    }
     const code = normalizeAccessCode(input);
     if (!isValidAccessCode(code)) return res.status(400).json({ success: false, reason: "invalid" });
     const codeHash = sha256(code);

@@ -45,6 +45,7 @@ res = response(); await redeem(request("POST", { code: "wrong" }), res); assert.
 
 res = response(); await redeem(request("POST", { code: "ZJDQ-TEST" }), res); assert.equal(res.body.success, true);
 res = response(); await redeem(request("POST", { code: "zjdqtest" }), res); assert.equal(res.body.success, true);
+res = response(); await redeem(request("POST", { code: "QIN-ZJDQ-TEST" }), res); assert.equal(res.body.success, true);
 const publicTestCookie = res.headers["Set-Cookie"].match(/^qin_access=([^;]+)/)[1];
 res = response(); await accessStatus(request("GET", null, `qin_access=${publicTestCookie}`), res); assert.equal(res.body.access, true);
 res = response(); await redeem(request("POST", { code: "ZJDQ-TEST" }), res); assert.equal(res.body.success, true);

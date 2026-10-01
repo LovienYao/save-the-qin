@@ -12,8 +12,8 @@
     "diagnose": "node scripts/diagnose.mjs",
     "diagnose:minimum": "node scripts/maximize-min-issues.mjs",
     "generate:codes": "node scripts/generate-access-codes.mjs",
-    "reset:code": "node scripts/reset-access-code.mjs",
-    "disable:code": "node scripts/disable-access-code.mjs",
-    "enable:code": "node scripts/enable-access-code.mjs"
+    "reset:code": "node --env-file=.env.local scripts/reset-access-code.mjs",
+    "disable:code": "node --env-file=.env.local scripts/disable-access-code.mjs",
+    "enable:code": "node --env-file=.env.local scripts/enable-access-code.mjs"
   }
 }

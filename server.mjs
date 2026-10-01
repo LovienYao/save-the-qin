@@ -26,4 +26,4 @@ createServer(async (req, res) => {
     res.writeHead(404, { "Content-Type":"text/plain; charset=utf-8" });
     res.end("未找到页面");
   }
-}).listen(port, "127.0.0.1", () => console.log(`大秦命运测试：http://localhost:${port}`));
+}).listen(port, "0.0.0.0", () => console.log(`大秦命运测试已监听端口 ${port}`));

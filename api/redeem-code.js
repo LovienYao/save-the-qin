@@ -24,14 +24,17 @@ export default async function handler(req, res) {
 
     const token = generateSessionToken();
     const now = new Date().toISOString();
+    const sessionHash = sha256(token);
     const rows = await supabaseRequest(`?code_hash=eq.${encodeURIComponent(codeHash)}&status=eq.unused&select=id`, {
       method: "PATCH",
       headers: { Prefer: "return=representation" },
-      body: JSON.stringify({ status: "used", activated_at: now, session_hash: sha256(token), last_verified_at: now })
+      body: JSON.stringify({ status: "used", activated_at: now, session_hash: sessionHash, last_verified_at: now })
     });
     if (rows.length !== 1) {
-      const latest = await findCodeByHash(codeHash);
-      return res.status(409).json({ success: false, reason: latest?.status === "disabled" ? "disabled" : "used" });
+      const latest = await findCodeByHash(codeHash, "id,status,session_hash");
+      if (latest?.session_hash !== sessionHash) {
+        return res.status(409).json({ success: false, reason: latest?.status === "disabled" ? "disabled" : "used" });
+      }
     }
     res.setHeader("Set-Cookie", `qin_access=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=31536000`);
     return res.status(200).json({ success: true });
